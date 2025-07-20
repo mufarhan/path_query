@@ -2156,19 +2156,8 @@ size_t ContractionHierarchy::size() const
     return total;
 }
 
-int Graph::UpNeighbor_position(ContractionHierarchy &ch, NodeID v, NodeID w) {
-
-    /*int left = 0, right = ch.nodes[v].up_neighbors.size();
-    while (left < right) {
-        int middle = (left + right) / 2;
-        if (ch.nodes[ch.nodes[v].up_neighbors[middle].node].dist_index == ch.nodes[w].dist_index)
-            return middle;
-        else if (ch.nodes[ch.nodes[v].up_neighbors[middle].node].dist_index < ch.nodes[w].dist_index)
-            right = middle - 1;
-        else
-            left = middle + 1;
-   }*/
-
+int Graph::UpNeighbor_position(ContractionHierarchy &ch, NodeID v, NodeID w) 
+{
    for(size_t i = 0; i < ch.nodes[v].up_neighbors.size(); i++) {
        if(ch.nodes[v].up_neighbors[i].neighbor == w) return i;
    }
