@@ -12,7 +12,6 @@
     #define MULTI_THREAD_DISTANCES 4 // number of parallel threads for label & shortcut computation
 #endif
 
-//#include <barrier>
 #include <thread>
 #include <cstdint>
 #include <climits>
@@ -270,14 +269,6 @@ struct Neighbor
     Neighbor(NodeID node, distance_t distance);
     bool operator<(const Neighbor &other) const;
 };
-
-/*struct CHNeighbor
-{
-    NodeID neighbor, next_to_node, next_to_neighbor, triangle_node;
-    distance_t distance;
-    CHNeighbor(NodeID neighbor, NodeID next_to_node, NodeID next_to_neighbor, NodeID triangle_node, distance_t distance);
-    //CHNeighbor(NodeID neighbor, NodeID triangle_node, distance_t distance);
-};*/
 
 struct composite_shortcut
 {
