@@ -2463,23 +2463,30 @@ void Graph::customise_hub_labelling(ContractionHierarchy &ch, ContractionIndex &
     }
 }
 
-void Graph::reset(ContractionHierarchy &ch, ContractionIndex &tcl) {
+void Graph::reset(ContractionHierarchy &ch, ContractionIndex &tcl) 
+{
+    // setting up path_data
+    const path_data blank_path;
 
     // reseting ch
-    for(NodeID x: ch.bottom_up_nodes) {
-        for(CHNeighbor &n: ch.nodes[x].up_neighbors) {
+    for(NodeID x: ch.bottom_up_nodes)
+    {
+        for(CHNeighbor &n: ch.nodes[x].up_neighbors)
+        {
             n.distance = infinity;
-            n.p.cs.triangle_node = NO_NODE;
+            n.p = blank_path;
         }
     }
 
-    for(NodeID x: ch.contracted_nodes) {
-        ch.nodes[x].up_neighbors[0].distance = 0;
-        ch.nodes[x].up_neighbors[0].p.cs.triangle_node = NO_NODE;
+    for(NodeID x: ch.contracted_nodes)
+    {
+        ch.nodes[x].up_neighbors[0].distance = infinity;
+        ch.nodes[x].up_neighbors[0].p = blank_path;
     }
 
     // reseting tcl
-    for(NodeID x: ch.bottom_up_nodes) {
+    for(NodeID x: ch.bottom_up_nodes)
+    {
         FlatCutIndex cx = tcl.get_contraction_label(x).cut_index;
         for(size_t anc = 0; anc < cx.label_count(); anc++)
             cx.distances()[anc] = infinity;
